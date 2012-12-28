@@ -1,0 +1,64 @@
+<html>
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />	
+    <link rel ="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="javascript/global.js"></script>
+	<script type="text/javascript" src="javascript/viview.js"></script>
+	<script type="text/javascript">	
+	var BUTTON_PREFIX = "content";
+	var VISIT_REDIRECTION_IDS = {"content0" : 1, "content1" : 2, "content2" : 3};
+	var VISIT_MANDATORY_PAGE_NAMES = {"content0" : "mg_01_012.html"};
+	var redirections = {"content0" : "mg_01_001.html"};
+	function Initialize(){
+		PoseListeners(true);		
+	}	
+	
+	function PoseListeners(_Value){
+		var index = 0;
+		var button;
+		while(undefined != (button = document.getElementById(BUTTON_PREFIX + index))){
+			button.onmousedown = _Value ? LoadThematicHandler : null;
+			index++;
+		}
+	} 
+	
+	function LoadThematicHandler(e){
+		e.preventDefault();
+		var tappedButtonID = e.currentTarget.id;
+		var visitToLoad = VISIT_REDIRECTION_IDS[tappedButtonID];
+		if(undefined != visitToLoad){
+			DeclareMandatories(tappedButtonID);
+			ShowVisitById(visitToLoad);
+		}
+		return false;	
+	}
+	
+	function DeclareMandatories(_TappedButtonID){
+		var mandatoryPageName = VISIT_MANDATORY_PAGE_NAMES[_TappedButtonID];
+		ClearMandatory();
+		if(undefined != mandatoryPageName){
+			DeclareMandatory(mandatoryPageName);
+		}
+	}
+	</script>
+    <style>
+	@font-face {
+	  font-family: 'HelveticaNeue';
+	  src: url(fonts/HelveticaNeueLTPro-MdCn.otf) format("opentype");
+	}
+	
+	body{
+		background-color:#FFF;	
+	}
+	</style>
+</head>
+<body>
+	<img src="images/home_bg.jpg">
+    <div id="content0" class="up-off" style="left:350px;top:242px;"><img src="images2/home_but.png"></div>
+    <span id="version" style="left:5px;bottom:5px;font-size:11px;font-family:HelveticaNeue;">v1.3 - Mise à jour 22/08/2012 - 12:00</span>
+</body>
+</html>
